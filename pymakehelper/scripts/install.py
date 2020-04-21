@@ -1,5 +1,6 @@
 import pylogconf.core
 
+
 def main() -> None:
     """
     :return: 

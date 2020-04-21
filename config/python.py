@@ -9,8 +9,8 @@ setup_requires = [
 ]
 
 run_requires = [
-    'pytconf', # for command line parsing
-    'pylogconf', # for logging configuration
+    'pytconf',  # for command line parsing
+    'pylogconf',  # for logging configuration
 ]
 
 test_requires = [
