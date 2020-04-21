@@ -10,7 +10,7 @@ setuptools.setup(
     version='0.0.1',
     packages=[
         'pymakehelper',
-        'pymakehelper.scripts',
+        'pymakehelper.endpoints',
     ],
     # from here all is optional
     description='pymakehelper helps doing things with the make system',
@@ -43,6 +43,7 @@ setuptools.setup(
     data_files=[
     ],
     entry_points={'console_scripts': [
+        'pymakehelper=pymakehelper.endpoints.main:main',
     ]},
     python_requires='>=3.4',
 )
