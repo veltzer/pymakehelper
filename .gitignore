@@ -5,6 +5,8 @@ __pycache__/
 
 /.myenv.pip.errors
 
+/.pydmt/
+
 # C extensions
 *.so
 

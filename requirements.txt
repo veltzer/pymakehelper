@@ -1,9 +1,13 @@
-# production
+# THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
+# production requirements
 pytconf
 pylogconf
-# development
+# dev requirements
+pyclassifiers
 pypitools
 pydmt
+Sphinx
+# test requirements
+pylint
 pytest
 pyflakes
-pylint

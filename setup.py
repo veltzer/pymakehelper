@@ -1,33 +1,48 @@
 import setuptools
 
+"""
+The documentation can be found at:
+http://setuptools.readthedocs.io/en/latest/setuptools.html
+"""
 setuptools.setup(
+    # the first three fields are a must according to the documentation
     name='pymakehelper',
     version='0.0.1',
-    description='pymakehelper is set of useful command line tools to help with writing make files',
-    long_description='pymakehelper is set of useful command line tools to help with writing make files',
-    url='https://veltzer.github.io/pymakehelper',
-    download_url='https://github.com/veltzer/pymakehelper',
+    packages=[
+        'pymakehelper',
+        'pymakehelper.scripts',
+    ],
+    # from here all is optional
+    description='pymakehelper helps doing things with the make system',
+    long_description='pymakehelper helps doing things with the make system',
     author='Mark Veltzer',
     author_email='mark.veltzer@gmail.com',
     maintainer='Mark Veltzer',
     maintainer_email='mark.veltzer@gmail.com',
+    keywords=[
+        'make',
+        'scons',
+    ],
+    url='https://veltzer.github.io/pymakehelper',
+    download_url='https://github.com/veltzer/pymakehelper',
     license='MIT',
-    platforms=['python3'],
+    platforms=[
+        'python3',
+    ],
+    install_requires=[
+        'pytconf',
+        'pylogconf',
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'Programming Language :: Python :: 3',
+        'Environment :: Console',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Utilities',
     ],
-    keywords='python command line shell utilities',
-    packages=setuptools.find_packages(),
-    install_requires=[
-        'pytconf',  # for command line parsing
-        'pylogconf',  # for logging
+    data_files=[
     ],
-    entry_points={
-        # order of console_scripts is the same order of files in the 'scripts' folder
-        'console_scripts': [
-            'pymakehelper_install=pymakehelper.scripts.install',
-        ],
-    },
+    entry_points={'console_scripts': [
+    ]},
+    python_requires='>=3.4',
 )
