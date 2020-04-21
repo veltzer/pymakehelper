@@ -5,7 +5,6 @@ from pymakehelper.endpoints.group_default import register_group_default
 
 
 def register_all_groups():
-    # order of registration is important
     register_group_default()
 
 
