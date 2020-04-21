@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+/.myenv.pip.errors
+
 # C extensions
 *.so
 

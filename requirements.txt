@@ -1,0 +1,9 @@
+# production
+pytconf
+pylogconf
+# development
+pypitools
+pydmt
+pytest
+pyflakes
+pylint
