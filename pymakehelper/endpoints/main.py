@@ -1,3 +1,8 @@
+"""
+main entry point to the program
+"""
+
+
 import pylogconf.core
 from pytconf.config import register_main, get_pytconf
 
@@ -5,6 +10,9 @@ from pymakehelper.endpoints.group_default import register_group_default
 
 
 def register_all_groups():
+    """
+    registers all groups of operations with pytconf
+    """
     register_group_default()
 
 

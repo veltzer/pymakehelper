@@ -1,6 +1,6 @@
 .PHONY: all
 
 all:
-	@pylint -E pymakehelper
+	@pylint --rcfile=.pylint.rc --reports=n --score=n pymakehelper tests
 	@pyflakes pymakehelper
-	@pytest 2>&1 >/dev/null
+	@pytest -qq > /dev/null
