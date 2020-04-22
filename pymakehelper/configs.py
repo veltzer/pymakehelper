@@ -32,4 +32,3 @@ class ConfigSymlinkInstall(Config):
         help_string="remove target files if they are links?",
         default=True,
     )
-

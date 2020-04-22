@@ -2,14 +2,14 @@
 The default group of operations that pymakehelper has
 """
 
+import os  # for walk, getcwd, symlink, listdir, unlink, mkdir
+import os.path  # for join, expanduser, realpath, abspath, islink, isdir, isfile
+
 from pytconf.config import register_endpoint, register_function_group
 
 from pymakehelper.configs import ConfigSymlinkInstall
 
 import pymakehelper
-
-import os  # for walk, getcwd, symlink, listdir, unlink, mkdir
-import os.path  # for join, expanduser, realpath, abspath, islink, isdir, isfile
 
 GROUP_NAME_DEFAULT = "default"
 GROUP_DESCRIPTION_DEFAULT = "all pymakehelper commands"
@@ -37,17 +37,24 @@ def version() -> None:
     print(pymakehelper.__version__)
 
 
+def debug(msg):
+    """debug function for the symlink install operation"""
+    if ConfigSymlinkInstall.debug:
+        print(msg)
+
+
 def do_install(source, target):
+    """install a single item"""
     if ConfigSymlinkInstall.force:
         if os.path.islink(target):
             os.unlink(target)
     if ConfigSymlinkInstall.doit:
-        if ConfigSymlinkInstall.debug:
-            print('symlinking [{0}], [{1}]'.format(source, target))
+        debug('symlinking [{0}], [{1}]'.format(source, target))
         os.symlink(source, target)
 
 
 def file_gen(root_folder: str, recurse: bool):
+    """generate all files in a folder"""
     if recurse:
         for root, directories, files in os.walk(root_folder):
             yield root, directories, files
@@ -82,8 +89,7 @@ def symlink_install() -> None:
                 link_target = os.path.realpath(full)
                 if link_target.startswith(cwd):
                     if ConfigSymlinkInstall.doit:
-                        if ConfigSymlinkInstall.debug:
-                            print('unlinking [{0}]'.format(full))
+                        debug('unlinking [{0}]'.format(full))
                         os.unlink(full)
     else:
         os.mkdir(ConfigSymlinkInstall.target_folder)
