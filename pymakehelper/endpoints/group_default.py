@@ -4,10 +4,11 @@ The default group of operations that pymakehelper has
 
 import os  # for walk, getcwd, symlink, listdir, unlink, mkdir
 import os.path  # for join, expanduser, realpath, abspath, islink, isdir, isfile
+import sys
 
 from pytconf.config import register_endpoint, register_function_group
 
-from pymakehelper.configs import ConfigSymlinkInstall
+from pymakehelper.configs import ConfigSymlinkInstall, ConfigRemoveFolders
 
 import pymakehelper
 
@@ -102,3 +103,18 @@ def symlink_install() -> None:
             source = os.path.abspath(os.path.join(root, directory))
             target = os.path.join(ConfigSymlinkInstall.target_folder, directory)
             do_install(source, target)
+
+
+@register_endpoint(
+    configs=[
+        ConfigRemoveFolders,
+    ],
+    suggest_configs=[],
+    group=GROUP_NAME_DEFAULT,
+)
+def remove_folders() -> None:
+    result = []
+    for f in sys.argv.filenames:
+        r = os.path.splitext(os.sep.join(f.split(os.sep)[1:]))[0]
+        result.append(r)
+    print(' '.join(result), end='')
