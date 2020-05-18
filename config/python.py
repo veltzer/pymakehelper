@@ -30,4 +30,4 @@ dev_requires = [
 install_requires = list(setup_requires)
 install_requires.extend(run_requires)
 
-python_requires = ">=3.4"
+python_requires = ">=3.5"
