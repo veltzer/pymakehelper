@@ -11,6 +11,7 @@ from pytconf.config import register_endpoint, register_function_group
 from pymakehelper.configs import ConfigSymlinkInstall, ConfigRemoveFolders
 
 import pymakehelper
+import pymakehelper.version
 
 GROUP_NAME_DEFAULT = "default"
 GROUP_DESCRIPTION_DEFAULT = "all pymakehelper commands"
@@ -35,7 +36,7 @@ def version() -> None:
     """
     Print version
     """
-    print(pymakehelper.__version__)
+    print(pymakehelper.version.VERSION_STR)
 
 
 def debug(msg):

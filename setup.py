@@ -7,7 +7,7 @@ http://setuptools.readthedocs.io/en/latest/setuptools.html
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name='pymakehelper',
-    version='0.0.2',
+    version='0.0.3',
     packages=[
         'pymakehelper',
         'pymakehelper.endpoints',
@@ -45,5 +45,5 @@ setuptools.setup(
     entry_points={'console_scripts': [
         'pymakehelper=pymakehelper.endpoints.main:main',
     ]},
-    python_requires='>=3.4',
+    python_requires='>=3.5',
 )
