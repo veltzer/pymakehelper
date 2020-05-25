@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.pydmt" />
       <excludeFolder url="file://$MODULE_DIR$/.pytest_cache" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/pymakehelper.egg-info" />
     </content>
