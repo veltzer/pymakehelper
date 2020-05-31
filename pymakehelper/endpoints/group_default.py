@@ -28,8 +28,6 @@ def register_group_default():
 
 
 @register_endpoint(
-    configs=[],
-    suggest_configs=[],
     group=GROUP_NAME_DEFAULT,
 )
 def version() -> None:
@@ -76,7 +74,6 @@ def file_gen(root_folder: str, recurse: bool):
     configs=[
         ConfigSymlinkInstall,
     ],
-    suggest_configs=[],
     group=GROUP_NAME_DEFAULT,
 )
 def symlink_install() -> None:
@@ -110,7 +107,6 @@ def symlink_install() -> None:
     configs=[
         ConfigRemoveFolders,
     ],
-    suggest_configs=[],
     group=GROUP_NAME_DEFAULT,
 )
 def remove_folders() -> None:
