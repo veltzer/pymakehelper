@@ -28,7 +28,7 @@ setuptools.setup(
     ],
     url="https://veltzer.github.io/pymakehelper",
     download_url="https://github.com/veltzer/pymakehelper",
-    # license="MIT",
+    license="MIT",
     platforms=[
         'python3',
     ],
