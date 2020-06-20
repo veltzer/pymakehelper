@@ -1,5 +1,4 @@
 
-
 # *pymakehelper* project by Mark Veltzer
 
 ![PyPI - Status](https://img.shields.io/pypi/status/pymakehelper)
@@ -17,7 +16,7 @@
 ![Downloads](https://pepy.tech/badge/pymakehelper/month)
 ![Downloads](https://pepy.tech/badge/pymakehelper/week)
 
+
 pymakehelper helps doing things with the make system
 
-project website: https://veltzer.github.io/pymakehelper
-
+project website: <https://veltzer.github.io/pymakehelper>
