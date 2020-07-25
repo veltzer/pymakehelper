@@ -3,7 +3,7 @@ All configurations for pymakehelper
 """
 
 
-from pytconf.config import Config, ParamCreator
+from pytconf import Config, ParamCreator
 
 
 class ConfigSymlinkInstall(Config):
