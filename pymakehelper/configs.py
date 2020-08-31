@@ -32,13 +32,3 @@ class ConfigSymlinkInstall(Config):
         help_string="remove target files if they are links?",
         default=True,
     )
-
-
-class ConfigRemoveFolders(Config):
-    """
-    Parameters for the remove folder tool
-    """
-    filenames = ParamCreator.create_list_str(
-
-
-    )

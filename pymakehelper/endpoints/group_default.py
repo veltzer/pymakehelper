@@ -4,11 +4,10 @@ The default group of operations that pymakehelper has
 
 import os  # for walk, getcwd, symlink, listdir, unlink, mkdir
 import os.path  # for join, expanduser, realpath, abspath, islink, isdir, isfile
-import sys
 
-from pytconf import register_endpoint, register_function_group
+from pytconf import register_endpoint, register_function_group, get_free_args
 
-from pymakehelper.configs import ConfigSymlinkInstall, ConfigRemoveFolders
+from pymakehelper.configs import ConfigSymlinkInstall
 
 import pymakehelper
 import pymakehelper.version
@@ -104,14 +103,48 @@ def symlink_install() -> None:
 
 
 @register_endpoint(
-    configs=[
-        ConfigRemoveFolders,
-    ],
     group=GROUP_NAME_DEFAULT,
+    allow_free_args=True,
 )
 def remove_folders() -> None:
+    """
+    Remove folder names from input
+    """
     result = []
-    for f in sys.argv.filenames:
+    for f in get_free_args():
         r = os.path.splitext(os.sep.join(f.split(os.sep)[1:]))[0]
         result.append(r)
     print(' '.join(result), end='')
+
+
+@register_endpoint(
+    group=GROUP_NAME_DEFAULT,
+    allow_free_args=True,
+)
+def touch_mkdir() -> None:
+    """
+    Touch a folder, possibly creating folders for it
+    """
+    pass
+
+
+@register_endpoint(
+    group=GROUP_NAME_DEFAULT,
+    allow_free_args=True,
+)
+def no_err() -> None:
+    """
+    Return with no error even if underlying process returns error
+    """
+    pass
+
+
+@register_endpoint(
+    group=GROUP_NAME_DEFAULT,
+    allow_free_args=True,
+)
+def ok() -> None:
+    """
+    Return with no error even if the underlying process returns error
+    """
+    pass
