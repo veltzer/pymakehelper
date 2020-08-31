@@ -11,6 +11,7 @@ from pymakehelper.configs import ConfigSymlinkInstall
 
 import pymakehelper
 import pymakehelper.version
+from pymakehelper.utils import touch_mkdir_many, no_err_run
 
 GROUP_NAME_DEFAULT = "default"
 GROUP_DESCRIPTION_DEFAULT = "all pymakehelper commands"
@@ -108,7 +109,7 @@ def symlink_install() -> None:
 )
 def remove_folders() -> None:
     """
-    Remove folder names from input
+    Remove one folder from each file name
     """
     result = []
     for f in get_free_args():
@@ -125,7 +126,7 @@ def touch_mkdir() -> None:
     """
     Touch a folder, possibly creating folders for it
     """
-    pass
+    touch_mkdir_many(get_free_args())
 
 
 @register_endpoint(
@@ -136,15 +137,4 @@ def no_err() -> None:
     """
     Return with no error even if underlying process returns error
     """
-    pass
-
-
-@register_endpoint(
-    group=GROUP_NAME_DEFAULT,
-    allow_free_args=True,
-)
-def ok() -> None:
-    """
-    Return with no error even if the underlying process returns error
-    """
-    pass
+    no_err_run(get_free_args())
