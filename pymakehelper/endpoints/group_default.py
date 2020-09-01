@@ -4,6 +4,8 @@ The default group of operations that pymakehelper has
 
 import os  # for walk, getcwd, symlink, listdir, unlink, mkdir
 import os.path  # for join, expanduser, realpath, abspath, islink, isdir, isfile
+import subprocess
+import sys
 
 from pytconf import register_endpoint, register_function_group, get_free_args
 
@@ -138,3 +140,21 @@ def no_err() -> None:
     Return with no error even if underlying process returns error
     """
     no_err_run(get_free_args())
+
+
+@register_endpoint(
+    group=GROUP_NAME_DEFAULT,
+    allow_free_args=True,
+)
+def only_print_on_error() -> None:
+    """
+    Collect stdout and stderr and print them only if the command
+    produced an error
+    """
+    pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (out_out, out_err) = pr.communicate()
+    status = pr.returncode
+    if status:
+        print(out_out.decode(), end='')
+        print(out_err.decode(), end='')
+        sys.exit(status)
