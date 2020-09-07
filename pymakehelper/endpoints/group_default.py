@@ -114,8 +114,9 @@ def remove_folders() -> None:
     Remove one folder from each file name
     """
     result = []
-    for f in get_free_args():
-        r = os.path.splitext(os.sep.join(f.split(os.sep)[1:]))[0]
+    for filename in get_free_args():
+        # r = os.path.splitext(os.sep.join(filename.split(os.sep)[1:]))[0]
+        r = os.sep.join(filename.split(os.sep)[1:])
         result.append(r)
     print(' '.join(result), end='')
 
