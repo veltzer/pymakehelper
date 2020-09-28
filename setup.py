@@ -9,7 +9,7 @@ def get_readme():
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name="pymakehelper",
-    version="0.0.11",
+    version="0.0.12",
     packages=[
         'pymakehelper',
     ],
@@ -54,7 +54,7 @@ setuptools.setup(
     data_files=[
     ],
     entry_points={"console_scripts": [
-        'pymakehelper=pymakehelper.endpoints.main:main',
+        'pymakehelper=pymakehelper.main:main',
     ]},
     python_requires=">=3.6",
 )

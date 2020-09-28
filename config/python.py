@@ -3,7 +3,7 @@ import config.project
 package_name = config.project.project_name
 
 console_scripts = [
-    'pymakehelper=pymakehelper.endpoints.main:main',
+    'pymakehelper=pymakehelper.main:main',
 ]
 
 setup_requires = [
