@@ -79,6 +79,8 @@ def no_err() -> None:
     allow_free_args=True,
 )
 def only_print_on_error() -> None:
+    if ConfigSymlinkInstall.print_command:
+        print(" ".join(get_free_args()))
     pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out_out, out_err) = pr.communicate()
     status = pr.returncode

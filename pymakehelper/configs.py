@@ -32,3 +32,7 @@ class ConfigSymlinkInstall(Config):
         help_string="remove target files if they are links?",
         default=True,
     )
+    print_command = ParamCreator.create_bool(
+        help_string="print the command?",
+        default=True,
+    )

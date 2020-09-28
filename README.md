@@ -16,6 +16,8 @@
 ![Downloads](https://pepy.tech/badge/pymakehelper/month)
 ![Downloads](https://pepy.tech/badge/pymakehelper/week)
 
+[![Known Vulnerabilities](https://snyk.io/test/github/veltzer/pymakehelper/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/veltzer/pymakehelper?targetFile=requirements.txt)
+
 
 
 pymakehelper helps doing things with the make system
