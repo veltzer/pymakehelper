@@ -1,6 +1,6 @@
 import datetime
-import config.general
 import pyclassifiers.values
+import config.general
 
 project_github_username = 'veltzer'
 project_name = 'pymakehelper'
@@ -20,6 +20,7 @@ project_long_description = project_short_description
 project_keywords = [
     'make',
     'scons',
+    'GNU make',
 ]
 project_license = 'MIT'
 project_year_started = '2020'

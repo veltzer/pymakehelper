@@ -9,10 +9,9 @@ def get_readme():
 setuptools.setup(
     # the first three fields are a must according to the documentation
     name="pymakehelper",
-    version="0.0.9",
+    version="0.0.10",
     packages=[
         'pymakehelper',
-        'pymakehelper.endpoints',
     ],
     # from here all is optional
     description="pymakehelper helps doing things with the make system",
@@ -25,6 +24,7 @@ setuptools.setup(
     keywords=[
         'make',
         'scons',
+        'GNU make',
     ],
     url="https://veltzer.github.io/pymakehelper",
     download_url="https://github.com/veltzer/pymakehelper",
