@@ -17,7 +17,10 @@ run_requires = [
 test_requires = [
     'pylint',  # to check for lint errors
     'pytest',  # for testing
+    'pytest-cov',  # for testing
     'pyflakes',  # for testing
+    'flake8',  # for testing
+    'pymakehelper',  # for the Makefile
 ]
 
 dev_requires = [

@@ -24,6 +24,7 @@ from pymakehelper.utils import touch_mkdir_many, no_err_run, debug, do_install, 
 )
 def symlink_install() -> None:
     cwd = os.getcwd()
+    # first unlink all paths in target leading back to here
     if os.path.isdir(ConfigSymlinkInstall.target_folder):
         for file in os.listdir(ConfigSymlinkInstall.target_folder):
             full = os.path.join(ConfigSymlinkInstall.target_folder, file)
@@ -35,6 +36,7 @@ def symlink_install() -> None:
                         os.unlink(full)
     else:
         os.mkdir(ConfigSymlinkInstall.target_folder)
+    # now create the new links
     for root, directories, files in file_gen(ConfigSymlinkInstall.source_folder, ConfigSymlinkInstall.recurse):
         for file in files:
             source = os.path.abspath(os.path.join(root, file))
