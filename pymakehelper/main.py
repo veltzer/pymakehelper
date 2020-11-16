@@ -79,6 +79,7 @@ def no_err() -> None:
 @register_endpoint(
     description="Collect stdout and stderr and print them only in error",
     allow_free_args=True,
+    min_free_args=1,
 )
 def only_print_on_error() -> None:
     if ConfigSymlinkInstall.print_command:
