@@ -34,5 +34,5 @@ class ConfigSymlinkInstall(Config):
     )
     print_command = ParamCreator.create_bool(
         help_string="print the command?",
-        default=True,
+        default=False,
     )
