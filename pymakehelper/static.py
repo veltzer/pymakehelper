@@ -2,3 +2,4 @@
 VERSION_STR = "0.0.14"
 DESCRIPTION = "pymakehelper helps doing things with the make system"
 APP_NAME = "pymakehelper"
+LOGGER_NAME = "pymakehelper"
