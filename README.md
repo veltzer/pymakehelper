@@ -12,11 +12,6 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/pymakehelper)
 
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
-![Downloads](https://pepy.tech/badge/pymakehelper)
-![Downloads](https://pepy.tech/badge/pymakehelper/month)
-![Downloads](https://pepy.tech/badge/pymakehelper/week)
-
-[![Known Vulnerabilities](https://snyk.io/test/github/veltzer/pymakehelper/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/veltzer/pymakehelper?targetFile=requirements.txt)
 
 
 Actions
