@@ -61,7 +61,7 @@ def remove_folders() -> None:
 
 
 @register_endpoint(
-    description="Touch a folder, possibly creating folders for it",
+    description="Touch a file, possibly creating folders for it",
     allow_free_args=True,
 )
 def touch_mkdir() -> None:

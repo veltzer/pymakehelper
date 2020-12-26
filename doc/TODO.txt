@@ -1,3 +1,7 @@
+- add mkdir_for command which makes all folders for a file.
+	just like
+		mkdir -p $(dir $@))
+	in a makefile
 - improve the symlink install operation to be smarter:
 	- don't install every symlink.
 		- If the symlink already exists and is pointing at the right
