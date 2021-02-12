@@ -11,7 +11,7 @@ import pylogconf.core
 from pytconf import register_endpoint, get_free_args, config_arg_parse_and_launch, \
     register_main
 
-from pymakehelper.configs import ConfigSymlinkInstall
+from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
 from pymakehelper.static import DESCRIPTION, APP_NAME, VERSION_STR
 from pymakehelper.utils import touch_mkdir_many, no_err_run, debug, do_install, file_gen
 
@@ -20,6 +20,7 @@ from pymakehelper.utils import touch_mkdir_many, no_err_run, debug, do_install, 
     description="Install symlinks to things in a folder",
     configs=[
         ConfigSymlinkInstall,
+        ConfigVerbose,
     ],
 )
 def symlink_install() -> None:
@@ -80,9 +81,12 @@ def no_err() -> None:
     description="Collect stdout and stderr and print them only in error",
     allow_free_args=True,
     min_free_args=1,
+    configs=[
+        ConfigVerbose,
+    ],
 )
 def only_print_on_error() -> None:
-    if ConfigSymlinkInstall.print_command:
+    if ConfigVerbose.print_command:
         print(" ".join(get_free_args()))
     pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out_out, out_err) = pr.communicate()
@@ -91,6 +95,28 @@ def only_print_on_error() -> None:
         print(out_out.decode(), end='')
         print(out_err.decode(), end='')
         sys.exit(status)
+
+
+@register_endpoint(
+    description="disregard exit code of command and issue error if there is output",
+    allow_free_args=True,
+    min_free_args=1,
+    configs=[
+        ConfigVerbose,
+    ],
+)
+def error_on_output() -> None:
+    if ConfigVerbose.print_command:
+        print(" ".join(get_free_args()))
+    pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (out_out, out_err) = pr.communicate()
+    _ = pr.returncode
+    if len(out_out) > 0 or len(out_err) > 0:
+        print(out_out.decode(), end='')
+        print(out_err.decode(), end='')
+        sys.exit(1)
+    else:
+        sys.exit(0)
 
 
 @register_endpoint(

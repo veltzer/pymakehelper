@@ -29,7 +29,6 @@ def touch_mkdir_many(filenames):
 
 
 def no_err_run(args):
-    assert isinstance(args, list)
     subprocess.call(args)
 
 

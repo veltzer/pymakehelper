@@ -6,6 +6,16 @@ All configurations for pymakehelper
 from pytconf import Config, ParamCreator
 
 
+class ConfigVerbose(Config):
+    """
+    Parameters for verbosity
+    """
+    print_command = ParamCreator.create_bool(
+        help_string="print the command?",
+        default=False,
+    )
+
+
 class ConfigSymlinkInstall(Config):
     """
     Parameters for the symlink install tool
@@ -31,8 +41,4 @@ class ConfigSymlinkInstall(Config):
     force = ParamCreator.create_bool(
         help_string="remove target files if they are links?",
         default=True,
-    )
-    print_command = ParamCreator.create_bool(
-        help_string="print the command?",
-        default=False,
     )
