@@ -86,7 +86,7 @@ def no_err() -> None:
     ],
 )
 def only_print_on_error() -> None:
-    if ConfigVerbose.print_command:
+    if ConfigVerbose.verbose:
         print(" ".join(get_free_args()))
     pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out_out, out_err) = pr.communicate()
@@ -106,7 +106,7 @@ def only_print_on_error() -> None:
     ],
 )
 def error_on_output() -> None:
-    if ConfigVerbose.print_command:
+    if ConfigVerbose.verbose:
         print(" ".join(get_free_args()))
     pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out_out, out_err) = pr.communicate()
@@ -117,6 +117,21 @@ def error_on_output() -> None:
         sys.exit(1)
     else:
         sys.exit(0)
+
+
+@register_endpoint(
+    description="reverse the exitcode of a command",
+    allow_free_args=True,
+    min_free_args=1,
+    configs=[
+        ConfigVerbose,
+    ],
+)
+def reverse_exitcode() -> None:
+    if ConfigVerbose.verbose:
+        print(" ".join(get_free_args()))
+    exitcode = subprocess.call(get_free_args())
+    sys.exit(int(not bool(exitcode)))
 
 
 @register_endpoint(

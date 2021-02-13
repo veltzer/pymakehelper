@@ -10,7 +10,7 @@ class ConfigVerbose(Config):
     """
     Parameters for verbosity
     """
-    print_command = ParamCreator.create_bool(
+    verbose = ParamCreator.create_bool(
         help_string="print the command?",
         default=False,
     )
