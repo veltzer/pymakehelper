@@ -15,7 +15,7 @@
 
 ![build](https://github.com/veltzer/pymakehelper/workflows/build/badge.svg)
 
-pymakehelper helps doing things with the make system
+pymakehelper eases writing recipes when using the make system
 
 project website: https://veltzer.github.io/pymakehelper
 

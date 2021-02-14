@@ -14,7 +14,7 @@ setuptools.setup(
         'pymakehelper',
     ],
     # from here all is optional
-    description="pymakehelper helps doing things with the make system",
+    description="pymakehelper eases writing recipes when using the make system",
     long_description=get_readme(),
     long_description_content_type="text/x-rst",
     author="Mark Veltzer",
