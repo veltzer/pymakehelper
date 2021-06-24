@@ -1,3 +1,6 @@
+- symlink_install command does not create the target folder
+	It assumes that this folder exists, and in most cases it does
+	But sometimes it doesnt so we should create the target folder.
 - add mkdir_for command which makes all folders for a file.
 	just like
 		mkdir -p $(dir $@))
