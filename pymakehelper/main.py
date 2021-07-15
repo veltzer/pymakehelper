@@ -88,13 +88,13 @@ def no_err() -> None:
 def only_print_on_error() -> None:
     if ConfigVerbose.verbose:
         print(" ".join(get_free_args()))
-    pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    (out_out, out_err) = pr.communicate()
-    status = pr.returncode
-    if status:
-        print(out_out.decode(), end='')
-        print(out_err.decode(), end='')
-        sys.exit(status)
+    with subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
+        (out_out, out_err) = pr.communicate()
+        status = pr.returncode
+        if status:
+            print(out_out.decode(), end='')
+            print(out_err.decode(), end='')
+            sys.exit(status)
 
 
 @register_endpoint(
@@ -108,9 +108,9 @@ def only_print_on_error() -> None:
 def error_on_output() -> None:
     if ConfigVerbose.verbose:
         print(" ".join(get_free_args()))
-    pr = subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    (out_out, out_err) = pr.communicate()
-    _ = pr.returncode
+    with subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
+        (out_out, out_err) = pr.communicate()
+        _ = pr.returncode
     if len(out_out) > 0 or len(out_err) > 0:
         print(out_out.decode(), end='')
         print(out_err.decode(), end='')

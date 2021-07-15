@@ -15,7 +15,8 @@ def touch(f):
     if os.path.isfile(f):
         os.utime(f, None)
     else:
-        open(f, 'w').close()
+        with open(f, 'w'):
+            pass
 
 
 def touch_mkdir(f):
