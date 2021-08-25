@@ -49,7 +49,7 @@ def do_install(source, target, force: bool, doit: bool):
         if os.path.islink(target):
             os.unlink(target)
     if doit:
-        debug('symlinking [{0}], [{1}]'.format(source, target))
+        debug("symlinking [{source}], [{target}]")
         os.symlink(source, target)
 
 
