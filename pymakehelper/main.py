@@ -27,27 +27,29 @@ def symlink_install() -> None:
     logger = get_logger()
     cwd = os.getcwd()
     # first unlink all paths in target leading back to here
-    if os.path.isdir(ConfigSymlinkInstall.target_folder):
-        for file in os.listdir(ConfigSymlinkInstall.target_folder):
-            full = os.path.join(ConfigSymlinkInstall.target_folder, file)
-            if os.path.islink(full):
-                link_target = os.path.realpath(full)
-                if link_target.startswith(cwd):
-                    if ConfigSymlinkInstall.doit:
-                        logger.info(f"unlinking [{full}]")
-                        os.unlink(full)
-    else:
+    if ConfigSymlinkInstall.unlink_all:
+        if os.path.isdir(ConfigSymlinkInstall.target_folder):
+            for filename in os.listdir(ConfigSymlinkInstall.target_folder):
+                full = os.path.join(ConfigSymlinkInstall.target_folder, filename)
+                if os.path.islink(full):
+                    link_target = os.path.realpath(full)
+                    if link_target.startswith(cwd):
+                        if ConfigSymlinkInstall.doit:
+                            logger.info(f"unlinking [{full}]")
+                            os.unlink(full)
+    if not os.path.isdir(ConfigSymlinkInstall.target_folder):
         os.mkdir(ConfigSymlinkInstall.target_folder)
     # now create the new links
-    for root, directories, files in file_gen(ConfigSymlinkInstall.source_folder, ConfigSymlinkInstall.recurse):
+    for root, _directories, files in file_gen(ConfigSymlinkInstall.source_folder, ConfigSymlinkInstall.recurse):
         for file in files:
             source = os.path.abspath(os.path.join(root, file))
             target = os.path.join(ConfigSymlinkInstall.target_folder, file)
             do_install(source, target, ConfigSymlinkInstall.force, ConfigSymlinkInstall.doit)
-        for directory in directories:
-            source = os.path.abspath(os.path.join(root, directory))
-            target = os.path.join(ConfigSymlinkInstall.target_folder, directory)
-            do_install(source, target, ConfigSymlinkInstall.force, ConfigSymlinkInstall.doit)
+        # there is really no need to create directories
+        # for directory in directories:
+            # source = os.path.abspath(os.path.join(root, directory))
+            # target = os.path.join(ConfigSymlinkInstall.target_folder, directory)
+            # do_install(source, target, ConfigSymlinkInstall.force, ConfigSymlinkInstall.doit)
 
 
 @register_endpoint(

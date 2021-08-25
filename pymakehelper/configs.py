@@ -42,3 +42,7 @@ class ConfigSymlinkInstall(Config):
         help_string="remove target files if they are links?",
         default=True,
     )
+    unlink_all = ParamCreator.create_bool(
+        help_string="first unlink all targets?",
+        default=False,
+    )
