@@ -1,3 +1,6 @@
+- make symlink_install more queit and less doing things.
+	The current configuration makes it remove each symlink and reinstalls it.
+	Try not to do it.
 - symlink_install command does not create the target folder
 	It assumes that this folder exists, and in most cases it does
 	But sometimes it doesnt so we should create the target folder.
