@@ -13,7 +13,7 @@ from pytconf import register_endpoint, get_free_args, config_arg_parse_and_launc
 
 from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
 from pymakehelper.static import DESCRIPTION, APP_NAME, VERSION_STR
-from pymakehelper.utils import touch_mkdir_many, no_err_run, debug, do_install, file_gen
+from pymakehelper.utils import touch_mkdir_many, no_err_run, get_logger, do_install, file_gen
 
 
 @register_endpoint(
@@ -24,6 +24,7 @@ from pymakehelper.utils import touch_mkdir_many, no_err_run, debug, do_install, 
     ],
 )
 def symlink_install() -> None:
+    logger = get_logger()
     cwd = os.getcwd()
     # first unlink all paths in target leading back to here
     if os.path.isdir(ConfigSymlinkInstall.target_folder):
@@ -33,7 +34,7 @@ def symlink_install() -> None:
                 link_target = os.path.realpath(full)
                 if link_target.startswith(cwd):
                     if ConfigSymlinkInstall.doit:
-                        debug(f"unlinking [{full}]")
+                        logger.info(f"unlinking [{full}]")
                         os.unlink(full)
     else:
         os.mkdir(ConfigSymlinkInstall.target_folder)

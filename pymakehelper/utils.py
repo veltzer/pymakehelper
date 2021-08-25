@@ -37,19 +37,15 @@ def get_logger():
     return logging.getLogger(APP_NAME)
 
 
-def debug(msg):
-    """debug function for the symlink install operation"""
-    logger = get_logger()
-    logger.debug(msg)
-
-
 def do_install(source, target, force: bool, doit: bool):
     """install a single item"""
+    logger = get_logger()
     if force:
         if os.path.islink(target):
+            logger.info(f"unlinking [{target}]")
             os.unlink(target)
     if doit:
-        debug("symlinking [{source}], [{target}]")
+        logger.info(f"symlinking [{source}], [{target}]")
         os.symlink(source, target)
 
 

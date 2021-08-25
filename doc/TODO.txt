@@ -1,3 +1,5 @@
+- whem using symlink_install it should print what it is doing.
+	Currently it does not since debug is false.
 - symlink_install command does not create the target folder
 	It assumes that this folder exists, and in most cases it does
 	But sometimes it doesnt so we should create the target folder.
