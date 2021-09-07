@@ -15,7 +15,7 @@ def touch(f):
     if os.path.isfile(f):
         os.utime(f, None)
     else:
-        with open(f, 'w', encoding="utf8"):
+        with open(f, "w"):
             pass
 
 
