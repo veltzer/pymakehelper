@@ -1,3 +1,11 @@
+- add a command to pymakehelper which exits on error either on output or on a bad
+	return code.
+	This is not identical to the two commands that we currenlty have:
+		error_on_print
+		only_print_on_error
+	It should be called
+		error_on_print_or_error
+
 - make symlink_install more queit and less doing things.
 	The current configuration makes it remove each symlink and reinstalls it.
 	Try not to do it.
