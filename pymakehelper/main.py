@@ -92,31 +92,31 @@ def only_print_on_error() -> None:
     if ConfigVerbose.verbose:
         print(" ".join(get_free_args()))
     with subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
-        (out_out, out_err) = pr.communicate()
+        out_out, out_err = pr.communicate()
         status = pr.returncode
         if status:
-            print(out_out.decode(), end='')
-            print(out_err.decode(), end='')
+            print(out_out.decode(), end='', file=sys.stdout)
+            print(out_err.decode(), end='', file=sys.stderr)
             sys.exit(status)
 
 
 @register_endpoint(
-    description="disregard exit code of command and issue error if there is output",
+    description="disregard exit code of command and issue error if there is stdout or stderr output",
     allow_free_args=True,
     min_free_args=1,
     configs=[
         ConfigVerbose,
     ],
 )
-def error_on_output() -> None:
+def error_on_print() -> None:
     if ConfigVerbose.verbose:
         print(" ".join(get_free_args()))
     with subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
-        (out_out, out_err) = pr.communicate()
+        out_out, out_err = pr.communicate()
         _ = pr.returncode
     if len(out_out) > 0 or len(out_err) > 0:
-        print(out_out.decode(), end='')
-        print(out_err.decode(), end='')
+        print(out_out.decode(), end='', file=sys.stdout)
+        print(out_err.decode(), end='', file=sys.stderr)
         sys.exit(1)
     else:
         sys.exit(0)
