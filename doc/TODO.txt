@@ -1,7 +1,3 @@
-- make CI/CD faster by doing pylint on all the sources ***IN ONE INVOCATION***
-	of pylint.
-	same for flake8.
-	currently build on github takes 25 minutes!!!
 - make symlink_install more queit and less doing things.
 	The current configuration makes it remove each symlink and reinstalls it.
 	Try not to do it.
