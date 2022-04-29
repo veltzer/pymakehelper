@@ -138,6 +138,17 @@ def reverse_exitcode() -> None:
 
 
 @register_endpoint(
+    description="run a build",
+)
+def run_make() -> None:
+    if not os.path.isfile("Makefile"):
+        return
+    if os.path.isfile(".build.disable"):
+        return
+    subprocess.check_call(["make"])
+
+
+@register_endpoint(
     description="wrap css validation command line",
     allow_free_args=True,
     min_free_args=1,
