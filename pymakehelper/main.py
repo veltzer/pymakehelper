@@ -139,13 +139,17 @@ def reverse_exitcode() -> None:
 
 @register_endpoint(
     description="run a build",
+    allow_free_args=True,
+    min_free_args=0,
 )
 def run_make() -> None:
     if not os.path.isfile("Makefile"):
         return
     if os.path.isfile(".build.disable"):
         return
-    subprocess.check_call(["make"])
+    args = ["make"]
+    args.extend(get_free_args())
+    subprocess.check_call(args)
 
 
 @register_endpoint(
