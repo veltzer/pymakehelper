@@ -1,4 +1,3 @@
-
 # *pymakehelper* project by Mark Veltzer
 
 ![PyPI - Status](https://img.shields.io/pypi/status/pymakehelper)
