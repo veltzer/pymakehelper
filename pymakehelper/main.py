@@ -174,6 +174,13 @@ def wrapper_css_validator() -> None:
         sys.exit(1)
 
 
+@register_endpoint(
+    description="print the environment variables pymakehelper is using",
+)
+def env() -> None:
+    print(os.environ)
+
+
 @register_main(
     main_description=DESCRIPTION,
     app_name=APP_NAME,
