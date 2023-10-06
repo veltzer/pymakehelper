@@ -3,6 +3,7 @@ import os
 import subprocess
 
 from pymakehelper.static import APP_NAME
+from pymakehelper.configs import ConfigSymlinkInstall
 
 
 def ensure_dir(f):
@@ -37,16 +38,30 @@ def get_logger():
     return logging.getLogger(APP_NAME)
 
 
-def do_install(source, target, force: bool, doit: bool):
-    """install a single item"""
+def do_real_install(source, target):
     logger = get_logger()
-    if force:
+    if ConfigSymlinkInstall.unlink:
         if os.path.islink(target):
             logger.info(f"unlinking [{target}]")
             os.unlink(target)
-    if doit:
+    if ConfigSymlinkInstall.doit:
         logger.info(f"symlinking [{source}], [{target}]")
         os.symlink(source, target)
+
+
+def do_install(source, target):
+    """install a single item"""
+    if ConfigSymlinkInstall.incremental:
+        if os.path.exists(target):
+            if os.path.islink(target):
+                if os.readlink(target) != source:
+                    do_real_install(source, target)
+            else:
+                raise ValueError(f"{target} is of non symlink type")
+        else:
+            do_real_install(source, target)
+    else:
+        do_real_install(source, target)
 
 
 def file_gen(root_folder: str, recurse: bool):

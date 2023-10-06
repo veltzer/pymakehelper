@@ -2,7 +2,7 @@
 main file
 """
 
-import os  # for walk, getcwd, symlink, listdir, unlink, mkdir
+import os  # for walk, symlink, listdir, unlink, mkdir
 import os.path  # for join, expanduser, realpath, abspath, islink, isdir, isfile
 import subprocess
 import sys
@@ -25,7 +25,6 @@ from pymakehelper.utils import touch_mkdir_many, no_err_run, get_logger, do_inst
 )
 def symlink_install() -> None:
     logger = get_logger()
-    cwd = os.getcwd()
     # first unlink all paths in target leading back to here
     if ConfigSymlinkInstall.unlink_all:
         if os.path.isdir(ConfigSymlinkInstall.target_folder):
@@ -33,7 +32,7 @@ def symlink_install() -> None:
                 full = os.path.join(ConfigSymlinkInstall.target_folder, filename)
                 if os.path.islink(full):
                     link_target = os.path.realpath(full)
-                    if link_target.startswith(cwd):
+                    if link_target.startswith(ConfigSymlinkInstall.source_folder):
                         if ConfigSymlinkInstall.doit:
                             logger.info(f"unlinking [{full}]")
                             os.unlink(full)
@@ -44,12 +43,12 @@ def symlink_install() -> None:
         for file in files:
             source = os.path.abspath(os.path.join(root, file))
             target = os.path.join(ConfigSymlinkInstall.target_folder, file)
-            do_install(source, target, ConfigSymlinkInstall.force, ConfigSymlinkInstall.doit)
+            do_install(source, target)
         # there is really no need to create directories
         # for directory in directories:
             # source = os.path.abspath(os.path.join(root, directory))
             # target = os.path.join(ConfigSymlinkInstall.target_folder, directory)
-            # do_install(source, target, ConfigSymlinkInstall.force, ConfigSymlinkInstall.doit)
+            # do_install(source, target)
 
 
 @register_endpoint(
