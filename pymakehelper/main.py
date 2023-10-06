@@ -38,16 +38,31 @@ def symlink_install() -> None:
                             os.unlink(full)
     if not os.path.isdir(ConfigSymlinkInstall.target_folder):
         os.mkdir(ConfigSymlinkInstall.target_folder)
+    # convert to abs path
+    if os.path.isabs(ConfigSymlinkInstall.source_folder):
+        source_folder = ConfigSymlinkInstall.source_folder
+    else:
+        source_folder = os.path.abspath(ConfigSymlinkInstall.source_folder)
+    if os.path.isabs(ConfigSymlinkInstall.target_folder):
+        target_folder = ConfigSymlinkInstall.target_folder
+    else:
+        target_folder = os.path.abspath(ConfigSymlinkInstall.target_folder)
     # now create the new links
-    for root, _directories, files in file_gen(ConfigSymlinkInstall.source_folder, ConfigSymlinkInstall.recurse):
+    for dirname, directories, files in file_gen(source_folder, ConfigSymlinkInstall.recurse):
         for file in files:
-            source = os.path.abspath(os.path.join(root, file))
-            target = os.path.join(ConfigSymlinkInstall.target_folder, file)
+            source = os.path.join(dirname, file)
+            diff = source[len(source_folder) + 1:]
+            target = os.path.join(target_folder, diff)
             do_install(source, target)
-        # there is really no need to create directories
-        # for directory in directories:
-            # source = os.path.abspath(os.path.join(root, directory))
-            # target = os.path.join(ConfigSymlinkInstall.target_folder, directory)
+        for directory in directories:
+            source = os.path.abspath(os.path.join(dirname, directory))
+            diff = source[len(source_folder) + 1:]
+            target = os.path.join(target_folder, diff)
+            if os.path.exists(target):
+                assert os.path.isdir(target)
+            else:
+                logger.info(f"os.mkdir [{target}]")
+                os.mkdir(target)
             # do_install(source, target)
 
 

@@ -12,6 +12,6 @@ project website: https://veltzer.github.io/pymakehelper
 
 author: Mark Veltzer
 
-version: 0.0.28
+version: 0.0.29
 
 	Mark Veltzer <mark.veltzer@gmail.com>, Copyright © 2020, 2021, 2022, 2023

@@ -39,6 +39,7 @@ def get_logger():
 
 
 def do_real_install(source, target):
+    """ This does the real installation """
     logger = get_logger()
     if ConfigSymlinkInstall.unlink:
         if os.path.islink(target):
@@ -50,14 +51,15 @@ def do_real_install(source, target):
 
 
 def do_install(source, target):
-    """install a single item"""
+    """install a single symlink"""
+    logger = get_logger()
     if ConfigSymlinkInstall.incremental:
         if os.path.exists(target):
-            if os.path.islink(target):
-                if os.readlink(target) != source:
-                    do_real_install(source, target)
-            else:
-                raise ValueError(f"{target} is of non symlink type")
+            assert os.path.islink(target)
+            if os.readlink(target) != source:
+                logger.info(f"unlinking [{target}]")
+                os.unlink(target)
+                do_real_install(source, target)
         else:
             do_real_install(source, target)
     else:
@@ -67,8 +69,7 @@ def do_install(source, target):
 def file_gen(root_folder: str, recurse: bool):
     """generate all files in a folder"""
     if recurse:
-        for root, directories, files in os.walk(root_folder):
-            yield root, directories, files
+        yield from os.walk(root_folder)
     else:
         directories = []
         files = []

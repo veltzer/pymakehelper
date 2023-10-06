@@ -40,7 +40,7 @@ class ConfigSymlinkInstall(Config):
     )
     unlink = ParamCreator.create_bool(
         help_string="remove target files if they are links?",
-        default=True,
+        default=False,
     )
     incremental = ParamCreator.create_bool(
         help_string="Only do new links?",
