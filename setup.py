@@ -24,7 +24,7 @@ setuptools.setup(
     keywords=[
         "make",
         "scons",
-        "GNU make",
+        "gnu-make",
     ],
     url="https://veltzer.github.io/pymakehelper",
     download_url="https://github.com/veltzer/pymakehelper",
