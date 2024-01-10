@@ -4,9 +4,11 @@ from typing import List
 console_scripts: List[str] = [
     "pymakehelper=pymakehelper.main:main",
 ]
-config_requires: List[str] = []
 dev_requires: List[str] = [
     "pypitools",
+]
+config_requires: List[str] = [
+    "pyclassifiers",
 ]
 install_requires: List[str] = [
     "pytconf",
@@ -15,7 +17,6 @@ install_requires: List[str] = [
 make_requires: List[str] = [
     "pymakehelper",
     "pydmt",
-    "pyclassifiers",
 ]
 test_requires: List[str] = [
     "pylint",
