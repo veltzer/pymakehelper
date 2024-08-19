@@ -6,10 +6,10 @@ from pymakehelper.static import APP_NAME
 from pymakehelper.configs import ConfigSymlinkInstall
 
 
-def ensure_dir(f):
+def ensure_dir(f, exist_ok=True):
     folder = os.path.dirname(f)
-    if folder != '' and not os.path.isdir(folder):
-        os.makedirs(folder)
+    if folder != "":
+        os.makedirs(folder, exist_ok=exist_ok)
 
 
 def touch(f):
