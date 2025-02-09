@@ -4,6 +4,7 @@ pytconf
 pylogconf
 pymakehelper
 pydmt
+pypitools
 pylint
 pytest
 pytest-cov

@@ -5,7 +5,6 @@ console_scripts: List[str] = [
     "pymakehelper=pymakehelper.main:main",
 ]
 dev_requires: List[str] = [
-    "pypitools",
 ]
 config_requires: List[str] = [
     "pyclassifiers",
@@ -17,6 +16,7 @@ install_requires: List[str] = [
 build_requires: List[str] = [
     "pymakehelper",
     "pydmt",
+    "pypitools",
 ]
 test_requires: List[str] = [
     "pylint",
