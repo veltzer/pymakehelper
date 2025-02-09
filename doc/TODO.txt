@@ -1,3 +1,6 @@
+- add pymakhelper.subprocess that has api for the subprocess stuff
+	make wrapper_pdflatex use that.
+
 - add a command to pymakehelper which exits on error either on output or on a bad
 	return code.
 	This is not identical to the two commands that we currenlty have:
