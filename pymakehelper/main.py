@@ -13,9 +13,11 @@ from pytconf import register_endpoint, get_free_args, config_arg_parse_and_launc
 
 from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
 from pymakehelper.static import DESCRIPTION, APP_NAME, VERSION_STR
-from pymakehelper.utils import touch_mkdir_many, no_err_run, get_logger, do_install, file_gen
-from pymakehelper.wrapper_pdflatex import run
+from pymakehelper.utils import touch_mkdir_many, get_logger, do_install, file_gen
+from pymakehelper.subprocess import run_error_on_print_or_error, run_no_err, run_only_print_on_error
+from pymakehelper.wrapper_pdflatex import run_wrapper_pdflatex
 from pymakehelper.configs import ConfigPdflatex
+from pymakehelper.subprocess import run_error_on_print
 
 
 @register_endpoint(
@@ -26,7 +28,7 @@ from pymakehelper.configs import ConfigPdflatex
     ],
 )
 def wrapper_pdflatex() -> None:
-    run()
+    run_wrapper_pdflatex()
 
 
 @register_endpoint(
@@ -104,11 +106,11 @@ def touch_mkdir() -> None:
     allow_free_args=True,
 )
 def no_err() -> None:
-    no_err_run(get_free_args())
+    run_no_err(get_free_args())
 
 
 @register_endpoint(
-    description="Collect stdout and stderr and print them only in error",
+    description="Collect stdout and stderr and print them only when the program returns error",
     allow_free_args=True,
     min_free_args=1,
     configs=[
@@ -116,15 +118,7 @@ def no_err() -> None:
     ],
 )
 def only_print_on_error() -> None:
-    if ConfigVerbose.verbose:
-        print(" ".join(get_free_args()))
-    with subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
-        out_out, out_err = pr.communicate()
-        status = pr.returncode
-        if status:
-            print(out_out.decode(), end="", file=sys.stdout)
-            print(out_err.decode(), end="", file=sys.stderr)
-            sys.exit(status)
+    run_only_print_on_error(get_free_args())
 
 
 @register_endpoint(
@@ -136,17 +130,19 @@ def only_print_on_error() -> None:
     ],
 )
 def error_on_print() -> None:
-    if ConfigVerbose.verbose:
-        print(" ".join(get_free_args()))
-    with subprocess.Popen(get_free_args(), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
-        out_out, out_err = pr.communicate()
-        _ = pr.returncode
-    if len(out_out) > 0 or len(out_err) > 0:
-        print(out_out.decode(), end="", file=sys.stdout)
-        print(out_err.decode(), end="", file=sys.stderr)
-        sys.exit(1)
-    else:
-        sys.exit(0)
+    run_error_on_print(get_free_args())
+
+
+@register_endpoint(
+    description="if the programin returns an error or prints anything issue an error print",
+    allow_free_args=True,
+    min_free_args=1,
+    configs=[
+        ConfigVerbose,
+    ],
+)
+def error_on_print_or_error() -> None:
+    run_error_on_print_or_error(get_free_args())
 
 
 @register_endpoint(

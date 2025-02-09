@@ -22,8 +22,9 @@ This python script is a rewrite of a similar script in perl.
 import sys
 import os
 import os.path
-import subprocess
 from pymakehelper.configs import ConfigPdflatex, ConfigVerbose
+from pymakehelper.subprocess import run_only_print_on_error
+from pymakehelper.utils import unlink_check
 
 
 def printout(filename: str):
@@ -47,16 +48,6 @@ def printout(filename: str):
                     inerr = True
 
 
-def unlink_check(filename: str):
-    """
-    this is a function that removes a file and can optionally die if there is a problem
-    """
-    if ConfigVerbose.verbose:
-        print(f"unlinking [{filename}]", file=sys.stderr)
-    if os.path.isfile(filename):
-        os.unlink(filename)
-
-
 def chmod_check(filename: str, check: bool):
     """
     this is a function that chmods a file and can optionally die if there is a problem
@@ -71,20 +62,6 @@ def chmod_check(filename: str, check: bool):
         # pylint: disable=broad-exception-caught
         except Exception:
             pass
-
-
-def my_call(args):
-    """ run subprocess """
-    if ConfigVerbose.verbose:
-        print(f"my_call args are [{args}]", file=sys.stderr)
-    res = subprocess.check_call(
-        args,
-        # stdout=subprocess.DEVNULL,
-        # stderr=subprocess.DEVNULL,
-    )
-    if ConfigVerbose.verbose:
-        print(f"my_call res is [{res}]", file=sys.stderr)
-    return res
 
 
 def my_rename(old_filename: str, new_filename: str, check: bool):
@@ -103,7 +80,7 @@ def my_rename(old_filename: str, new_filename: str, check: bool):
             pass
 
 
-def run():
+def run_wrapper_pdflatex():
     """ main entry point """
     filename_input = ConfigPdflatex.input_file
     filename_output = ConfigPdflatex.output_file
@@ -129,7 +106,7 @@ def run():
     )
     # we need to run the command twice!!! (to generate the index and more)
     for _ in range(ConfigPdflatex.runs):
-        my_call(args)
+        run_only_print_on_error(args)
         unlink_check(output_base + ".log")
         unlink_check(output_base + ".out")
         unlink_check(output_base + ".toc")
@@ -151,5 +128,5 @@ def run():
             tmp_output,
             filename_output,
         ]
-        my_call(args)
+        run_only_print_on_error(args)
         unlink_check(tmp_output)

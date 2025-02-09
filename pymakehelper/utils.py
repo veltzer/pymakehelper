@@ -1,9 +1,20 @@
 import logging
+import sys
 import os
-import subprocess
 
 from pymakehelper.static import APP_NAME
 from pymakehelper.configs import ConfigSymlinkInstall
+from pymakehelper.configs import ConfigVerbose
+
+
+def unlink_check(filename: str):
+    """
+    this is a function that removes a file and can optionally die if there is a problem
+    """
+    if ConfigVerbose.verbose:
+        print(f"unlinking [{filename}]", file=sys.stderr)
+    if os.path.isfile(filename):
+        os.unlink(filename)
 
 
 def ensure_dir(f, exist_ok=True):
@@ -28,10 +39,6 @@ def touch_mkdir(f):
 def touch_mkdir_many(filenames):
     for filename in filenames:
         touch_mkdir(filename)
-
-
-def no_err_run(args):
-    subprocess.call(args)
 
 
 def get_logger():
