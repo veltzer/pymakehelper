@@ -22,6 +22,7 @@ from pymakehelper.configs import ConfigPdflatex
     description="Run pdflatex",
     configs=[
         ConfigPdflatex,
+        ConfigVerbose,
     ],
 )
 def wrapper_pdflatex() -> None:

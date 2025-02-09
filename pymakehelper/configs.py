@@ -11,7 +11,7 @@ class ConfigVerbose(Config):
     Parameters for verbosity
     """
     verbose = ParamCreator.create_bool(
-        help_string="print the command?",
+        help_string="be verbose?",
         default=False,
     )
 
@@ -61,4 +61,16 @@ class ConfigPdflatex(Config):
     )
     output_file = ParamCreator.create_new_file(
         help_string="output file",
+    )
+    remove_tmp = ParamCreator.create_bool(
+        help_string="remove the tmp file for output at the end of the run?",
+        default=True,
+    )
+    qpdf = ParamCreator.create_bool(
+        help_string="do you want to run the qpdf post processing stage?",
+        default=True,
+    )
+    runs = ParamCreator.create_int(
+        help_string="how many times to run pdflatex(1)?",
+        default=2,
     )

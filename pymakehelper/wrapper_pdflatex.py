@@ -23,19 +23,7 @@ import sys
 import os
 import os.path
 import subprocess
-from pymakehelper.configs import ConfigPdflatex
-
-
-# parameters
-# do you want debugging...
-DEBUG = False
-# remove the tmp file for output at the end of the run? (this should be yes
-# unless you want junk files hanging around in /tmp...)
-REMOVE_TMP = True
-# how many times to run pdflatex(1) ?
-RUNS = 2
-# do you want to run the "qpdf" post processing stage?
-QPDF = True
+from pymakehelper.configs import ConfigPdflatex, ConfigVerbose
 
 
 def printout(filename: str):
@@ -45,7 +33,7 @@ def printout(filename: str):
     only prints the lines between lines starting with "!" (including the actual lines
     starting with "!"). Apparently this is how pdflatex shows errors. Ugrrr...
     """
-    if DEBUG:
+    if ConfigVerbose.verbose:
         print(f"printing [{filename}]", file=sys.stderr)
     with open(filename, encoding="UTF8") as file:
         inerr = False
@@ -64,7 +52,7 @@ def unlink_check(filename: str, check: bool, doit: bool):
     this is a function that removes a file and can optionally die if there is a problem
     """
     if doit:
-        if DEBUG:
+        if ConfigVerbose.verbose:
             print(f"unlinking [{filename}]", file=sys.stderr)
         if check:
             os.unlink(filename)
@@ -80,7 +68,7 @@ def chmod_check(filename: str, check: bool):
     """
     this is a function that chmods a file and can optionally die if there is a problem
     """
-    if DEBUG:
+    if ConfigVerbose.verbose:
         print(f"chmodding [{filename}]", file=sys.stderr)
     if check:
         os.chmod(filename, 0o444)
@@ -94,14 +82,14 @@ def chmod_check(filename: str, check: bool):
 
 def my_call(args):
     """ run subprocess """
-    if DEBUG:
+    if ConfigVerbose.verbose:
         print(f"my_call args are [{args}]", file=sys.stderr)
     res = subprocess.check_call(
         args,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    if DEBUG:
+    if ConfigVerbose.verbose:
         print(f"my_call res is [{res}]", file=sys.stderr)
     return res
 
@@ -110,7 +98,7 @@ def my_rename(old_filename: str, new_filename: str, check: bool):
     """
     this is a function that renames a file and dies if there is a problem
     """
-    if DEBUG:
+    if ConfigVerbose.verbose:
         print(f"my_rename [{old_filename, new_filename}]", file=sys.stderr)
     if check:
         os.rename(old_filename, new_filename)
@@ -138,7 +126,7 @@ def run():
         output_dir,
         filename_input,
     ]
-    if DEBUG:
+    if ConfigVerbose.verbose:
         print(f"input is [{filename_input}]")
         print(f"output is [{filename_output}")
         print(f"cmd is [{args}")
@@ -149,7 +137,7 @@ def run():
         os.path.isfile(filename_output),
     )
     # we need to run the command twice!!! (to generate the index and more)
-    for _ in range(RUNS):
+    for _ in range(ConfigPdflatex.runs):
         my_call(args)
         unlink_check(output_base + ".log", True, True)
         unlink_check(output_base + ".out", True, True)
@@ -159,7 +147,7 @@ def run():
         unlink_check(output_base + ".snm", True, True)
         unlink_check(output_base + ".vrb", True, True)
 
-    if QPDF:
+    if ConfigPdflatex.qpdf:
         # move the output to the new place
         tmp_output = filename_output + ".tmp"
         my_rename(filename_output, tmp_output, True)
