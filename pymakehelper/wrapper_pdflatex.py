@@ -23,6 +23,7 @@ import sys
 import os
 import os.path
 import subprocess
+from pymakehelper.configs import ConfigPdflatex
 
 
 # parameters
@@ -121,10 +122,10 @@ def my_rename(old_filename: str, new_filename: str, check: bool):
             pass
 
 
-def run(args):
+def run():
     """ main entry point """
-    filename_input = args[0]
-    filename_output = args[1]
+    filename_input = ConfigPdflatex.input_file
+    filename_output = ConfigPdflatex.output_file
     output_dir = os.path.dirname(filename_output)
     output_base = os.path.splitext(filename_output)[0]
 

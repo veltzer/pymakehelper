@@ -15,18 +15,17 @@ from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
 from pymakehelper.static import DESCRIPTION, APP_NAME, VERSION_STR
 from pymakehelper.utils import touch_mkdir_many, no_err_run, get_logger, do_install, file_gen
 from pymakehelper.wrapper_pdflatex import run
+from pymakehelper.configs import ConfigPdflatex
 
 
 @register_endpoint(
     description="Run pdflatex",
     configs=[
-        ConfigSymlinkInstall,
-        ConfigVerbose,
+        ConfigPdflatex,
     ],
-    allow_free_args=True,
 )
 def wrapper_pdflatex() -> None:
-    run(get_free_args())
+    run()
 
 
 @register_endpoint(

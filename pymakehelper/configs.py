@@ -50,3 +50,15 @@ class ConfigSymlinkInstall(Config):
         help_string="first unlink all targets?",
         default=False,
     )
+
+
+class ConfigPdflatex(Config):
+    """
+    Parameters for pdflatex
+    """
+    input_file = ParamCreator.create_existing_file(
+        help_string="input file",
+    )
+    output_file = ParamCreator.create_new_file(
+        help_string="output file",
+    )
