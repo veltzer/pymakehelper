@@ -47,21 +47,14 @@ def printout(filename: str):
                     inerr = True
 
 
-def unlink_check(filename: str, check: bool, doit: bool):
+def unlink_check(filename: str):
     """
     this is a function that removes a file and can optionally die if there is a problem
     """
-    if doit:
-        if ConfigVerbose.verbose:
-            print(f"unlinking [{filename}]", file=sys.stderr)
-        if check:
-            os.unlink(filename)
-        else:
-            try:
-                os.unlink(filename)
-            # pylint: disable=broad-exception-caught
-            except Exception:
-                pass
+    if ConfigVerbose.verbose:
+        print(f"unlinking [{filename}]", file=sys.stderr)
+    if os.path.isfile(filename):
+        os.unlink(filename)
 
 
 def chmod_check(filename: str, check: bool):
@@ -133,19 +126,17 @@ def run():
     # first remove the output (if it exists)
     unlink_check(
         filename_output,
-        True,
-        os.path.isfile(filename_output),
     )
     # we need to run the command twice!!! (to generate the index and more)
     for _ in range(ConfigPdflatex.runs):
         my_call(args)
-        unlink_check(output_base + ".log", True, True)
-        unlink_check(output_base + ".out", True, True)
-        unlink_check(output_base + ".toc", True, True)
-        unlink_check(output_base + ".aux", True, True)
-        unlink_check(output_base + ".nav", True, True)
-        unlink_check(output_base + ".snm", True, True)
-        unlink_check(output_base + ".vrb", True, True)
+        unlink_check(output_base + ".log")
+        unlink_check(output_base + ".out")
+        unlink_check(output_base + ".toc")
+        unlink_check(output_base + ".aux")
+        unlink_check(output_base + ".nav")
+        unlink_check(output_base + ".snm")
+        unlink_check(output_base + ".vrb")
 
     if ConfigPdflatex.qpdf:
         # move the output to the new place
@@ -161,4 +152,4 @@ def run():
             filename_output,
         ]
         my_call(args)
-        unlink_check(tmp_output, True, True)
+        unlink_check(tmp_output)
