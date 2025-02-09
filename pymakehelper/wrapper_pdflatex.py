@@ -79,8 +79,8 @@ def my_call(args):
         print(f"my_call args are [{args}]", file=sys.stderr)
     res = subprocess.check_call(
         args,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        # stdout=subprocess.DEVNULL,
+        # stderr=subprocess.DEVNULL,
     )
     if ConfigVerbose.verbose:
         print(f"my_call res is [{res}]", file=sys.stderr)
