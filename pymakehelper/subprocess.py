@@ -23,6 +23,7 @@ def run_only_print_on_error(args: List[str]):
     if code:
         print(out_out.decode(), end="", file=sys.stdout)
         print(out_err.decode(), end="", file=sys.stderr)
+        sys.exit(code)
 
 
 def run_error_on_print(args: List[str]):
