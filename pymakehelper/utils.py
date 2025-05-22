@@ -91,3 +91,16 @@ def file_gen(root_folder: str, recurse: bool):
             if os.path.isfile(full):
                 files.append(file)
         yield root_folder, directories, files
+
+
+def get_flags(filename: str) -> set[str]:
+    """ read the content of a file and get all the flags declared in it """
+    flags = set()
+    with open(filename, encoding="utf-8") as stream:
+        for line in stream:
+            line = line.strip()
+            if line.find("FLAGS:") != -1:
+                all_flags = line.split(":")[1]
+                for flag in all_flags.split(","):
+                    flags.add(flag.strip())
+    return flags

@@ -13,7 +13,7 @@ from pytconf import register_endpoint, get_free_args, config_arg_parse_and_launc
 
 from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
 from pymakehelper.static import DESCRIPTION, APP_NAME, VERSION_STR
-from pymakehelper.utils import touch_mkdir_many, get_logger, do_install, file_gen
+from pymakehelper.utils import touch_mkdir_many, get_logger, do_install, file_gen, get_flags
 from pymakehelper.subprocess import run_error_on_print_or_error, run_no_err, run_only_print_on_error
 from pymakehelper.wrapper_pdflatex import run_wrapper_pdflatex
 from pymakehelper.configs import ConfigPdflatex
@@ -173,6 +173,22 @@ def run_make() -> None:
     args = ["make"]
     args.extend(get_free_args())
     subprocess.check_call(args)
+
+
+@register_endpoint(
+    description="run command with options of ignore",
+    allow_free_args=True,
+    min_free_args=3,
+)
+def run_with_ignore() -> None:
+    args = get_free_args()
+    filename = args[0]
+    flag = args[1]
+    cmd = args[2:]
+    flags = get_flags(filename)
+    if flag in flags:
+        sys.exit(0)
+    subprocess.check_call(cmd)
 
 
 @register_endpoint(
