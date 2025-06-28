@@ -4,7 +4,6 @@ This module provides a simple wrapper around the subprocess module
 
 import sys
 import subprocess
-from typing import List
 from pymakehelper.configs import ConfigVerbose
 
 
