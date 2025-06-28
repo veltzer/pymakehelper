@@ -1,8 +1,8 @@
 """ python deps for this project """
 
-console_scripts: list[str] = [
-    "pymakehelper=pymakehelper.main:main",
-]
+scripts: dict[str,str] = {
+    "pymakehelper": "pymakehelper.main:main",
+}
 
 config_requires: list[str] = [
     "pyclassifiers",
