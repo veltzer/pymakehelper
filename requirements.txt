@@ -62,6 +62,7 @@ rfc3986==2.0.0
 rich==14.0.0
 roman-numerals-py==3.1.0
 rpds-py==0.25.1
+ruff==0.12.1
 SecretStorage==3.3.3
 setuptools==80.9.0
 smmap==5.0.2
