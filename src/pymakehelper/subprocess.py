@@ -8,13 +8,13 @@ from typing import List
 from pymakehelper.configs import ConfigVerbose
 
 
-def run_no_err(args: List[str]):
+def run_no_err(args: list[str]):
     if ConfigVerbose.verbose:
         print(" ".join(args))
     subprocess.call(args)
 
 
-def run_only_print_on_error(args: List[str]):
+def run_only_print_on_error(args: list[str]):
     if ConfigVerbose.verbose:
         print(" ".join(args))
     with subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
@@ -26,7 +26,7 @@ def run_only_print_on_error(args: List[str]):
         sys.exit(code)
 
 
-def run_error_on_print(args: List[str]):
+def run_error_on_print(args: list[str]):
     if ConfigVerbose.verbose:
         print(" ".join(args))
     with subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
@@ -40,7 +40,7 @@ def run_error_on_print(args: List[str]):
         sys.exit(0)
 
 
-def run_error_on_print_or_error(args: List[str]):
+def run_error_on_print_or_error(args: list[str]):
     if ConfigVerbose.verbose:
         print(" ".join(args))
     with subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:
