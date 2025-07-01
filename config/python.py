@@ -1,12 +1,7 @@
 """ python deps for this project """
 
-scripts: dict[str,str] = {
-    "pymakehelper": "pymakehelper.main:main",
-}
+import config.shared
 
-config_requires: list[str] = [
-    "pyclassifiers",
-]
 install_requires: list[str] = [
     "pytconf",
     "pylogconf",
@@ -23,4 +18,8 @@ test_requires: list[str] = [
     "mypy",
     "ruff",
 ]
-requires = config_requires + install_requires + build_requires + test_requires
+requires = install_requires + build_requires + test_requires
+
+scripts: dict[str,str] = {
+    "pymakehelper": "pymakehelper.main:main",
+}
