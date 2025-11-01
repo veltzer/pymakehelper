@@ -117,7 +117,7 @@ def run_wrapper_pdflatex():
 
     if ConfigPdflatex.qpdf:
         # move the output to the new place
-        tmp_output = filename_output + ".tmp"
+        tmp_output = filename_output + ".pdf"
         my_rename(filename_output, tmp_output, True)
         # I also had "--force-version=1.5" but it is not needed since I use
         # pdflatex and pdftex with the right version there...
