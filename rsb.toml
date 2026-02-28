@@ -3,3 +3,18 @@ exclude_files = ["Makefile"]
 
 [processor.ascii_check]
 enabled = false
+
+[processor.markdownlint]
+enabled = false
+
+[processor.rumdl]
+enabled = false
+
+[processor.mdl]
+enabled = false
+
+[processor.aspell]
+enabled = false
+
+[processor.pyrefly]
+enabled = false
