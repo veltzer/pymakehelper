@@ -19,9 +19,10 @@ mode to ask the user what to do about an error (what is this behaviour anyway ?!
 This python script is a rewrite of a similar script in perl.
 """
 
-import sys
 import os
 import os.path
+import sys
+
 from pymakehelper.configs import ConfigPdflatex, ConfigVerbose
 from pymakehelper.subprocess import run_only_print_on_error
 from pymakehelper.utils import unlink_check
@@ -60,7 +61,7 @@ def chmod_check(filename: str, check: bool):
         try:
             os.chmod(filename, 0o444)
         # pylint: disable=broad-exception-caught
-        except Exception:
+        except Exception:  # noqa: BLE001,S110
             pass
 
 
@@ -76,7 +77,7 @@ def my_rename(old_filename: str, new_filename: str, check: bool):
         try:
             os.rename(old_filename, new_filename)
         # pylint: disable=broad-exception-caught
-        except Exception:
+        except Exception:  # noqa: BLE001,S110
             pass
 
 

@@ -2,8 +2,9 @@
 This module provides a simple wrapper around the subprocess module
 """
 
-import sys
 import subprocess
+import sys
+
 from pymakehelper.configs import ConfigVerbose
 
 

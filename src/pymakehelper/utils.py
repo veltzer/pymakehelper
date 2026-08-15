@@ -3,12 +3,11 @@ utils.py
 """
 
 import logging
-import sys
 import os
+import sys
 
+from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
 from pymakehelper.static import APP_NAME
-from pymakehelper.configs import ConfigSymlinkInstall
-from pymakehelper.configs import ConfigVerbose
 
 
 def unlink_check(filename: str):
@@ -52,10 +51,9 @@ def get_logger():
 def do_real_install(source, target):
     """ This does the real installation """
     logger = get_logger()
-    if ConfigSymlinkInstall.unlink:
-        if os.path.islink(target):
-            logger.info(f"unlinking [{target}]")
-            os.unlink(target)
+    if ConfigSymlinkInstall.unlink and os.path.islink(target):
+        logger.info(f"unlinking [{target}]")
+        os.unlink(target)
     if ConfigSymlinkInstall.doit:
         logger.info(f"symlinking [{source}], [{target}]")
         os.symlink(source, target)

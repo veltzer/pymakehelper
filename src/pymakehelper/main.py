@@ -8,16 +8,13 @@ import subprocess
 import sys
 
 import pylogconf.core
-from pytconf import register_endpoint, get_free_args, config_arg_parse_and_launch, \
-    register_main
+from pytconf import config_arg_parse_and_launch, get_free_args, register_endpoint, register_main
 
-from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
-from pymakehelper.static import DESCRIPTION, APP_NAME, VERSION_STR
-from pymakehelper.utils import touch_mkdir_many, get_logger, do_install, file_gen, get_flags
-from pymakehelper.subprocess import run_error_on_print_or_error, run_no_err, run_only_print_on_error
+from pymakehelper.configs import ConfigPdflatex, ConfigSymlinkInstall, ConfigVerbose
+from pymakehelper.static import APP_NAME, DESCRIPTION, VERSION_STR
+from pymakehelper.subprocess import run_error_on_print, run_error_on_print_or_error, run_no_err, run_only_print_on_error
+from pymakehelper.utils import do_install, file_gen, get_flags, get_logger, touch_mkdir_many
 from pymakehelper.wrapper_pdflatex import run_wrapper_pdflatex
-from pymakehelper.configs import ConfigPdflatex
-from pymakehelper.subprocess import run_error_on_print
 
 
 @register_endpoint(
@@ -41,16 +38,14 @@ def wrapper_pdflatex() -> None:
 def symlink_install() -> None:
     logger = get_logger()
     # first unlink all paths in target leading back to here
-    if ConfigSymlinkInstall.unlink_all:
-        if os.path.isdir(ConfigSymlinkInstall.target_folder):
-            for filename in os.listdir(ConfigSymlinkInstall.target_folder):
-                full = os.path.join(ConfigSymlinkInstall.target_folder, filename)
-                if os.path.islink(full):
-                    link_target = os.path.realpath(full)
-                    if link_target.startswith(ConfigSymlinkInstall.source_folder):
-                        if ConfigSymlinkInstall.doit:
-                            logger.info(f"unlinking [{full}]")
-                            os.unlink(full)
+    if ConfigSymlinkInstall.unlink_all and os.path.isdir(ConfigSymlinkInstall.target_folder):
+        for filename in os.listdir(ConfigSymlinkInstall.target_folder):
+            full = os.path.join(ConfigSymlinkInstall.target_folder, filename)
+            if os.path.islink(full):
+                link_target = os.path.realpath(full)
+                if link_target.startswith(ConfigSymlinkInstall.source_folder) and ConfigSymlinkInstall.doit:
+                    logger.info(f"unlinking [{full}]")
+                    os.unlink(full)
     if not os.path.isdir(ConfigSymlinkInstall.target_folder):
         os.mkdir(ConfigSymlinkInstall.target_folder)
     # convert to abs path
