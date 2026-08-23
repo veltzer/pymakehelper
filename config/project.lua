@@ -5,3 +5,4 @@ KEYWORDS = {
     "scons",
     "gnu-make",
 }
+PYPI = true
