@@ -5,7 +5,7 @@
 
 description: pymakehelper eases writing recipes when using the make system
 
-project website: https://veltzer.github.io/pymakehelper
+project website: <https://veltzer.github.io/pymakehelper>
 
 author: Mark Veltzer
 
