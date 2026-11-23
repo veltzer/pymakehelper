@@ -52,10 +52,10 @@ def do_real_install(source, target):
     """ This does the real installation """
     logger = get_logger()
     if ConfigSymlinkInstall.unlink and os.path.islink(target):
-        logger.info(f"unlinking [{target}]")
+        logger.info("unlinking [%s]", target)
         os.unlink(target)
     if ConfigSymlinkInstall.doit:
-        logger.info(f"symlinking [{source}], [{target}]")
+        logger.info("symlinking [%s], [%s]", source, target)
         os.symlink(source, target)
 
 
@@ -66,7 +66,7 @@ def do_install(source, target):
         if os.path.exists(target):
             assert os.path.islink(target)
             if os.readlink(target) != source:
-                logger.info(f"unlinking [{target}]")
+                logger.info("unlinking [%s]", target)
                 os.unlink(target)
                 do_real_install(source, target)
         else:
