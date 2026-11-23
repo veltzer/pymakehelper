@@ -95,8 +95,8 @@ def get_flags(filename: str) -> set[str]:
     """ read the content of a file and get all the flags declared in it """
     flags = set()
     with open(filename, encoding="utf-8") as stream:
-        for line in stream:
-            line = line.strip()
+        for raw_line in stream:
+            line = raw_line.strip()
             if line.find("FLAGS:") != -1:
                 all_flags = line.split(":")[1]
                 for flag in all_flags.split(","):

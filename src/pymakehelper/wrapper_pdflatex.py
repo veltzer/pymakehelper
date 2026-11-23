@@ -19,6 +19,7 @@ mode to ask the user what to do about an error (what is this behaviour anyway ?!
 This python script is a rewrite of a similar script in perl.
 """
 
+import contextlib
 import os
 import os.path
 import sys
@@ -43,10 +44,9 @@ def printout(filename: str):
             if inerr:
                 print(line, file=sys.stderr)
                 inerr = False
-            else:
-                if line.startswith("!"):
-                    print(line, file=sys.stderr)
-                    inerr = True
+            elif line.startswith("!"):
+                print(line, file=sys.stderr)
+                inerr = True
 
 
 def chmod_check(filename: str, check: bool):
@@ -58,11 +58,8 @@ def chmod_check(filename: str, check: bool):
     if check:
         os.chmod(filename, 0o444)
     else:
-        try:
+        with contextlib.suppress(OSError):
             os.chmod(filename, 0o444)
-        # pylint: disable=broad-exception-caught
-        except Exception:  # noqa: BLE001,S110
-            pass
 
 
 def my_rename(old_filename: str, new_filename: str, check: bool):
@@ -74,11 +71,8 @@ def my_rename(old_filename: str, new_filename: str, check: bool):
     if check:
         os.rename(old_filename, new_filename)
     else:
-        try:
+        with contextlib.suppress(OSError):
             os.rename(old_filename, new_filename)
-        # pylint: disable=broad-exception-caught
-        except Exception:  # noqa: BLE001,S110
-            pass
 
 
 def run_wrapper_pdflatex():
