@@ -29,7 +29,7 @@ from pymakehelper.subprocess import run_only_print_on_error
 from pymakehelper.utils import unlink_check
 
 
-def printout(filename: str):
+def printout(filename: str) -> None:
     """
     print to stdout a file content
     this function is adjusted for the ugly output that pdflatex produces and so it
@@ -49,7 +49,7 @@ def printout(filename: str):
                 inerr = True
 
 
-def chmod_check(filename: str, *, check: bool):
+def chmod_check(filename: str, *, check: bool) -> None:
     """
     this is a function that chmods a file and can optionally die if there is a problem
     """
@@ -62,7 +62,7 @@ def chmod_check(filename: str, *, check: bool):
             os.chmod(filename, 0o444)
 
 
-def my_rename(old_filename: str, new_filename: str, *, check: bool):
+def my_rename(old_filename: str, new_filename: str, *, check: bool) -> None:
     """
     this is a function that renames a file and dies if there is a problem
     """
@@ -75,7 +75,7 @@ def my_rename(old_filename: str, new_filename: str, *, check: bool):
             os.rename(old_filename, new_filename)
 
 
-def run_wrapper_pdflatex():
+def run_wrapper_pdflatex() -> None:
     """ main entry point """
     filename_input = ConfigPdflatex.input_file
     filename_output = ConfigPdflatex.output_file

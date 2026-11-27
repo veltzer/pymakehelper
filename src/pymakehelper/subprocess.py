@@ -8,13 +8,13 @@ import sys
 from pymakehelper.configs import ConfigVerbose
 
 
-def run_no_err(args: list[str]):
+def run_no_err(args: list[str]) -> None:
     if ConfigVerbose.verbose:
         print(" ".join(args))
     subprocess.call(args)
 
 
-def run_only_print_on_error(args: list[str]):
+def run_only_print_on_error(args: list[str]) -> None:
     if ConfigVerbose.verbose:
         print(" ".join(args))
     with subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pr:

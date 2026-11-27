@@ -5,12 +5,13 @@ utils.py
 import logging
 import os
 import sys
+from logging import Logger
 
 from pymakehelper.configs import ConfigSymlinkInstall, ConfigVerbose
 from pymakehelper.static import APP_NAME
 
 
-def unlink_check(filename: str):
+def unlink_check(filename: str) -> None:
     """
     this is a function that removes a file and can optionally die if there is a problem
     """
@@ -20,13 +21,13 @@ def unlink_check(filename: str):
         os.unlink(filename)
 
 
-def ensure_dir(f, *, exist_ok=True):
+def ensure_dir(f: str, *, exist_ok: bool = True) -> None:
     folder = os.path.dirname(f)
     if folder != "":
         os.makedirs(folder, exist_ok=exist_ok)
 
 
-def touch(f):
+def touch(f: str) -> None:
     if os.path.isfile(f):
         os.utime(f, None)
     else:
@@ -34,21 +35,21 @@ def touch(f):
             pass
 
 
-def touch_mkdir(f):
+def touch_mkdir(f: str) -> None:
     ensure_dir(f)
     touch(f)
 
 
-def touch_mkdir_many(filenames):
+def touch_mkdir_many(filenames: list[str]) -> None:
     for filename in filenames:
         touch_mkdir(filename)
 
 
-def get_logger():
+def get_logger() -> Logger:
     return logging.getLogger(APP_NAME)
 
 
-def do_real_install(source, target):
+def do_real_install(source: str, target: str) -> None:
     """ This does the real installation """
     logger = get_logger()
     if ConfigSymlinkInstall.unlink and os.path.islink(target):
@@ -59,7 +60,7 @@ def do_real_install(source, target):
         os.symlink(source, target)
 
 
-def do_install(source, target):
+def do_install(source: str, target: str) -> None:
     """install a single symlink"""
     logger = get_logger()
     if ConfigSymlinkInstall.incremental:
