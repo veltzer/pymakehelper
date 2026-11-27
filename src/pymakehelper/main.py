@@ -73,7 +73,6 @@ def symlink_install() -> None:
             else:
                 logger.info("os.mkdir [%s]", target)
                 os.mkdir(target)
-            # do_install(source, target)
 
 
 @register_endpoint(
