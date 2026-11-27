@@ -20,7 +20,7 @@ def unlink_check(filename: str):
         os.unlink(filename)
 
 
-def ensure_dir(f, exist_ok=True):
+def ensure_dir(f, *, exist_ok=True):
     folder = os.path.dirname(f)
     if folder != "":
         os.makedirs(folder, exist_ok=exist_ok)
@@ -75,7 +75,7 @@ def do_install(source, target):
         do_real_install(source, target)
 
 
-def file_gen(root_folder: str, recurse: bool):
+def file_gen(root_folder: str, *, recurse: bool):
     """generate all files in a folder"""
     if recurse:
         yield from os.walk(root_folder)

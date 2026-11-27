@@ -49,7 +49,7 @@ def printout(filename: str):
                 inerr = True
 
 
-def chmod_check(filename: str, check: bool):
+def chmod_check(filename: str, *, check: bool):
     """
     this is a function that chmods a file and can optionally die if there is a problem
     """
@@ -62,7 +62,7 @@ def chmod_check(filename: str, check: bool):
             os.chmod(filename, 0o444)
 
 
-def my_rename(old_filename: str, new_filename: str, check: bool):
+def my_rename(old_filename: str, new_filename: str, *, check: bool):
     """
     this is a function that renames a file and dies if there is a problem
     """
@@ -113,7 +113,7 @@ def run_wrapper_pdflatex():
     if ConfigPdflatex.qpdf:
         # move the output to the new place
         tmp_output = filename_output + ".pdf"
-        my_rename(filename_output, tmp_output, True)
+        my_rename(filename_output, tmp_output, check=True)
         # I also had "--force-version=1.5" but it is not needed since I use
         # pdflatex and pdftex with the right version there...
         args = [

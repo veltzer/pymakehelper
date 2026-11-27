@@ -58,7 +58,7 @@ def symlink_install() -> None:
     else:
         target_folder = os.path.abspath(ConfigSymlinkInstall.target_folder)
     # now create the new links
-    for dirname, directories, files in file_gen(source_folder, ConfigSymlinkInstall.recurse):
+    for dirname, directories, files in file_gen(source_folder, recurse=ConfigSymlinkInstall.recurse):
         for file in files:
             source = os.path.join(dirname, file)
             diff = source[len(source_folder) + 1:]
